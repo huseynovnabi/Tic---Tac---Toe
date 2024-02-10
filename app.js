@@ -4,7 +4,8 @@ let scoreO = document.querySelector(".scoreO");
 let statusText = document.querySelector("#statusText");
 let restartBtn = document.querySelector("#restartBtn");
 let continueBtn = document.querySelector("#continueBtn");
-let scoreValue = 0;
+let scoreValueX = 0;
+let scoreValueY = 0;
 let currentPlayer = "X";
 const winConditions = [
     [0, 1, 2],
@@ -47,10 +48,9 @@ function checkWinner() {
 
         if (symbolA != "" && symbolA === symbolB && symbolA === symbolC) {
             if (symbolA === "X") {
-                scoreX.textContent = `${++scoreValue}`;
+                scoreX.textContent = `${++scoreValueX}`;
             } else if (symbolA === "O") {
-                scoreValue = 0;
-                scoreO.textContent = `${++scoreValue}`;
+                scoreO.textContent = `${++scoreValueY}`;
             }
             statusText.textContent = `${symbolA} Win!`;
             cells[a].style.backgroundColor = "green";
@@ -81,8 +81,9 @@ function restartGame() {
     currentPlayer = "X";
     statusText.textContent = `${currentPlayer}'s turn`;
     cells.forEach(cell => cell.style.backgroundColor = "");
-    scoreValue = 0;
-    scoreX.textContent = `${scoreValue}`;
-    scoreO.textContent = `${scoreValue}`;
+    scoreValueX = 0;
+    scoreValueY = 0;
+    scoreX.textContent = `${scoreValueX}`;
+    scoreO.textContent = `${scoreValueY}`;
     startGame();
 }
