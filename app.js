@@ -1,6 +1,11 @@
-const cells = document.querySelectorAll(".cell");
-const statusText = document.querySelector("#statusText");
-const restartBtn = document.querySelector("#restartBtn");
+let cells = document.querySelectorAll(".cell");
+let scoreX = document.querySelector(".scoreX");
+let scoreO = document.querySelector(".scoreO");
+let statusText = document.querySelector("#statusText");
+let restartBtn = document.querySelector("#restartBtn");
+let continueBtn = document.querySelector("#continueBtn");
+let scoreValue = 0;
+let currentPlayer = "X";
 const winConditions = [
     [0, 1, 2],
     [3, 4, 5],
@@ -11,73 +16,73 @@ const winConditions = [
     [0, 4, 8],
     [2, 4, 6]
 ];
-let options = ["", "", "", "", "", "", "", "", ""];
-let currentPlayer = "X";
-let running = false;
 
-initializeGame();
+startGame();
 
-function initializeGame() {
-    cells.forEach(cell => cell.addEventListener("click", cellClicked));
+
+function startGame() {
+    cells.forEach(cell => cell.addEventListener("click", cellClick));
+    statusText.textContent = `${currentPlayer}'s turn`;
+    continueBtn.addEventListener("click", continueGame);
     restartBtn.addEventListener("click", restartGame);
-    statusText.textContent = `${currentPlayer}'s turn`;
-    running = true;
 }
 
-function cellClicked() {
-    const cellIndex = this.getAttribute("cellIndex");
 
-    if (options[cellIndex] != "" || !running) {
-        return;
+function cellClick() {
+    if (this.textContent == "") {
+        this.textContent = currentPlayer;
+        currentPlayer = (currentPlayer === "X") ? "O" : "X";
+        statusText.textContent = `${currentPlayer}'s turn`;
+        checkWinner();
     }
-
-    updateCell(this, cellIndex);
-    checkWinner();
 }
 
-function updateCell(cell, index) {
-    options[index] = currentPlayer;
-    cell.textContent = currentPlayer;
-}
-
-function changePlayer() {
-    currentPlayer = (currentPlayer == "X") ? "O" : "X";
-    statusText.textContent = `${currentPlayer}'s turn`;
-}
 
 function checkWinner() {
-    let roundWon = false;
+    for (const condition of winConditions) {
+        const [a, b, c] = condition;
+        const symbolA = cells[a].textContent;
+        const symbolB = cells[b].textContent;
+        const symbolC = cells[c].textContent;
 
-    for (i = 0; i < winConditions.length; i++) {
-        const condition = winConditions[i];
-        const cellA = options[condition[0]];
-        const cellB = options[condition[1]];
-        const cellC = options[condition[2]];
-
-        if (cellA == "" && cellB == "" && cellC == "") {
-            continue;
+        if (symbolA != "" && symbolA === symbolB && symbolA === symbolC) {
+            if (symbolA === "X") {
+                scoreX.textContent = `${++scoreValue}`;
+            } else if (symbolA === "O") {
+                scoreValue = 0;
+                scoreO.textContent = `${++scoreValue}`;
+            }
+            statusText.textContent = `${symbolA} Win!`;
+            cells[a].style.backgroundColor = "green";
+            cells[b].style.backgroundColor = "green";
+            cells[c].style.backgroundColor = "green";
+            cells.forEach(cell => cell.removeEventListener("click", cellClick));
+            return;
         }
-        if (cellA == cellB && cellB == cellC) {
-            roundWon = true;
-            break;
-        }
-    }
 
-    if (roundWon) {
-        statusText.textContent = `${currentPlayer} wins!`
-        running = false;
-    } else if (!options.includes("")) {
-        statusText.textContent = `Draw!`
-        running = false;
-    } else {
-        changePlayer();
+        if ([...cells].every(cell => cell.textContent !== "")) {
+            statusText.textContent = "Draw!";
+        }
     }
 }
 
-function restartGame() {
-    currentPlayer = "X";
-    options = ["", "", "", "", "", "", "", "", ""];
-    statusText.textContent = `${currentPlayer}'s turn`;
+
+function continueGame() {
     cells.forEach(cell => cell.textContent = "");
-    running = true;
+    currentPlayer = "X";
+    statusText.textContent = `${currentPlayer}'s turn`;
+    cells.forEach(cell => cell.style.backgroundColor = "");
+    startGame();
+}
+
+
+function restartGame() {
+    cells.forEach(cell => cell.textContent = "");
+    currentPlayer = "X";
+    statusText.textContent = `${currentPlayer}'s turn`;
+    cells.forEach(cell => cell.style.backgroundColor = "");
+    scoreValue = 0;
+    scoreX.textContent = `${scoreValue}`;
+    scoreO.textContent = `${scoreValue}`;
+    startGame();
 }

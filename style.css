@@ -10,13 +10,27 @@ body {
 
 h1 {
     color: red;
+    font-size: 50px;
+}
+
+.scoreBoard {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.X,
+.O {
+    margin: 0 20px;
+    font-size: 40px;
+    color: rgb(82, 82, 82);
 }
 
 #cellContainer {
     display: grid;
     grid-template-columns: repeat(3, auto);
     width: 225px;
-    margin: auto;
+    margin: 20px auto;
 }
 
 #statusText {
@@ -42,4 +56,9 @@ button {
     cursor: pointer;
     background-color: red;
     color: #fff;
+    margin: 0 10px;
+}
+
+#continueBtn {
+    background-color: green;
 }

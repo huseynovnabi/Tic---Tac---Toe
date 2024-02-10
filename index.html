@@ -5,6 +5,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Tic Tac Toe </title>
+    <script src="app.js" defer></script>
     <link rel="stylesheet" href="style.css">
 </head>
 
@@ -12,6 +13,16 @@
 
     <div id="gameContainer">
         <h1>Tic Tac Toe </h1>
+        <div class="scoreBoard">
+            <div class="X">
+                <span>X: </span>
+                <span class="scoreX">0</span>
+            </div>
+            <div class="O">
+                <span>O: </span>
+                <span class="scoreO">0</span>
+            </div>
+        </div>
         <div id="cellContainer">
             <div cellIndex="0" class="cell"></div>
             <div cellIndex="1" class="cell"></div>
@@ -24,11 +35,10 @@
             <div cellIndex="8" class="cell"></div>
         </div>
         <h2 id="statusText"></h2>
+        <button id="continueBtn">Continue</button>
         <button id="restartBtn">Restart</button>
     </div>
 
-
-    <script src="app.js"></script>
 </body>
 
 </html>
