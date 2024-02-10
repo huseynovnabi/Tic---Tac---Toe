@@ -48,10 +48,23 @@ function checkWinner() {
 
         if (symbolA != "" && symbolA === symbolB && symbolA === symbolC) {
             if (symbolA === "X") {
-                scoreX.textContent = `${++scoreValueX}`;
+                scoreValueX++;
+                if (scoreValueX === 3) {
+                    alert("Oyun bitdi. X qazandı!");
+                    scoreValueX = 0;
+                    scoreValueY = 0;
+                }
+                scoreX.textContent = `${scoreValueX}`;
             } else if (symbolA === "O") {
-                scoreO.textContent = `${++scoreValueY}`;
+                scoreValueY++;
+                if (scoreValueY === 3) {
+                    alert("Oyun bitdi. O qazandı!");
+                    scoreValueX = 0;
+                    scoreValueY = 0;
+                }
+                scoreO.textContent = `${scoreValueY}`;
             }
+
             statusText.textContent = `${symbolA} Win!`;
             cells[a].style.backgroundColor = "green";
             cells[b].style.backgroundColor = "green";
