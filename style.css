@@ -2,13 +2,33 @@ body {
     background-color: #141414;
     color: #fff;
 }
+.modal-content {
+    background-color: rgb(197, 167, 90);
+    text-align: center;
+}
+#messageBox {
+    width: 50%;
+    margin: 20px;
+    font-size: 20px;
+    display: none;
+    color: white;
+    border: 1px solid white;
+}
 
 #gameContainer {
     font-family: "Permanent Marker", cursive;
     text-align: center;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+#messageBox {
+    background-color: rgb(27, 172, 27);
 }
 
 h1 {
+    margin-top: 20px;
     color: red;
     font-size: 50px;
 }
@@ -46,20 +66,4 @@ h1 {
     line-height: 75px;
     font-size: 50px;
     cursor: pointer;
-}
-
-button {
-    padding: 10px 20px;
-    border-radius: 10px;
-    border: none;
-    font-size: 15px;
-    font-weight: 600;
-    cursor: pointer;
-    background-color: red;
-    color: #fff;
-    margin: 0 10px;
-}
-
-#continueBtn {
-    background-color: green;
 }

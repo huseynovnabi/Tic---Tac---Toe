@@ -1,11 +1,12 @@
+let messageBox = document.querySelector("#messageBox");
 let cells = document.querySelectorAll(".cell");
 let scoreX = document.querySelector(".scoreX");
 let scoreO = document.querySelector(".scoreO");
 let statusText = document.querySelector("#statusText");
-let restartBtn = document.querySelector("#restartBtn");
 let continueBtn = document.querySelector("#continueBtn");
+let yesBtn = document.querySelector("#yesBtn");
 let scoreValueX = 0;
-let scoreValueY = 0;
+let scoreValueO = 0;
 let currentPlayer = "X";
 const winConditions = [
     [0, 1, 2],
@@ -18,6 +19,8 @@ const winConditions = [
     [2, 4, 6]
 ];
 
+
+
 startGame();
 
 
@@ -25,9 +28,22 @@ function startGame() {
     cells.forEach(cell => cell.addEventListener("click", cellClick));
     statusText.textContent = `${currentPlayer}'s turn`;
     continueBtn.addEventListener("click", continueGame);
-    restartBtn.addEventListener("click", restartGame);
+    yesBtn.addEventListener("click", yesRestart);
 }
 
+
+function yesRestart() {
+    cells.forEach(cell => cell.textContent = "");
+    currentPlayer = "X";
+    statusText.textContent = `${currentPlayer}'s turn`;
+    cells.forEach(cell => cell.style.backgroundColor = "");
+    scoreValueX = 0;
+    scoreValueO = 0;
+    scoreX.textContent = `${scoreValueX}`;
+    scoreO.textContent = `${scoreValueO}`;
+    messageBox.style.display = "none";
+    startGame();
+}
 
 function cellClick() {
     if (this.textContent == "") {
@@ -50,19 +66,25 @@ function checkWinner() {
             if (symbolA === "X") {
                 scoreValueX++;
                 if (scoreValueX === 3) {
-                    alert("Oyun bitdi. X qazandı!");
-                    scoreValueX = 0;
-                    scoreValueY = 0;
+                    messageBox.style.display = "block";
+                    messageBox.innerHTML = "";
+                    messageBox.append("Game Over - X Won");
+                    setTimeout(() => {
+                        yesRestart();
+                    }, 2000);
                 }
                 scoreX.textContent = `${scoreValueX}`;
             } else if (symbolA === "O") {
-                scoreValueY++;
-                if (scoreValueY === 3) {
-                    alert("Oyun bitdi. O qazandı!");
-                    scoreValueX = 0;
-                    scoreValueY = 0;
+                scoreValueO++;
+                if (scoreValueO === 3) {
+                    messageBox.style.display = "block";
+                    messageBox.innerHTML = "";
+                    messageBox.append("Game Over - O Won");
+                    setTimeout(() => {
+                        yesRestart();
+                    }, 2000);
                 }
-                scoreO.textContent = `${scoreValueY}`;
+                scoreO.textContent = `${scoreValueO}`;
             }
 
             statusText.textContent = `${symbolA} Win!`;
@@ -85,18 +107,5 @@ function continueGame() {
     currentPlayer = "X";
     statusText.textContent = `${currentPlayer}'s turn`;
     cells.forEach(cell => cell.style.backgroundColor = "");
-    startGame();
-}
-
-
-function restartGame() {
-    cells.forEach(cell => cell.textContent = "");
-    currentPlayer = "X";
-    statusText.textContent = `${currentPlayer}'s turn`;
-    cells.forEach(cell => cell.style.backgroundColor = "");
-    scoreValueX = 0;
-    scoreValueY = 0;
-    scoreX.textContent = `${scoreValueX}`;
-    scoreO.textContent = `${scoreValueY}`;
     startGame();
 }
