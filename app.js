@@ -31,7 +31,6 @@ function startGame() {
     yesBtn.addEventListener("click", yesRestart);
 }
 
-
 function yesRestart() {
     cells.forEach(cell => cell.textContent = "");
     currentPlayer = "X";
