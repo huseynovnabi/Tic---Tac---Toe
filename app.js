@@ -4,6 +4,7 @@ let scoreX = document.querySelector(".scoreX");
 let scoreO = document.querySelector(".scoreO");
 let statusText = document.querySelector("#statusText");
 let continueBtn = document.querySelector("#continueBtn");
+let restartBtn = document.querySelector("#restartBtn");
 let yesBtn = document.querySelector("#yesBtn");
 let scoreValueX = 0;
 let scoreValueO = 0;
@@ -19,8 +20,6 @@ const winConditions = [
     [2, 4, 6]
 ];
 
-
-
 startGame();
 
 
@@ -30,6 +29,7 @@ function startGame() {
     continueBtn.addEventListener("click", continueGame);
     yesBtn.addEventListener("click", yesRestart);
 }
+
 
 function yesRestart() {
     cells.forEach(cell => cell.textContent = "");
@@ -41,6 +41,8 @@ function yesRestart() {
     scoreX.textContent = `${scoreValueX}`;
     scoreO.textContent = `${scoreValueO}`;
     messageBox.style.display = "none";
+    continueBtn.style.display = "none";
+    restartBtn.style.display = "none"
     startGame();
 }
 
@@ -91,11 +93,15 @@ function checkWinner() {
             cells[b].style.backgroundColor = "green";
             cells[c].style.backgroundColor = "green";
             cells.forEach(cell => cell.removeEventListener("click", cellClick));
+            continueBtn.style.display = "block";
+            restartBtn.style.display = "block";
             return;
         }
 
         if ([...cells].every(cell => cell.textContent !== "")) {
             statusText.textContent = "Draw!";
+            continueBtn.style.display = "block";
+            restartBtn.style.display = "block";
         }
     }
 }
