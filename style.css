@@ -2,10 +2,12 @@ body {
     background-color: #141414;
     color: #fff;
 }
+
 .modal-content {
     background-color: rgb(197, 167, 90);
     text-align: center;
 }
+
 #messageBox {
     width: 50%;
     margin: 20px;
@@ -16,7 +18,6 @@ body {
 }
 
 #gameContainer {
-    font-family: "Permanent Marker", cursive;
     text-align: center;
     display: flex;
     flex-direction: column;
